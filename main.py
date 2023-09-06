@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "mytoken"
 
 
-def recipes():
+def recipes(id = "", Nombre_receta = "", Descripcion = "", Ingredientes = ""):
     mydb = mysql.connector.connect(
         host="containers-us-west-53.railway.app",
         user="root",
@@ -17,21 +17,21 @@ def recipes():
         port=7314
     )
     mycursor = mydb.cursor()
-    sql = "select * from recipes where id = 1"
+    sql = "select * from recipes where id = '2'"
     mycursor.execute(sql)
-    mydb.commit()
-    return True
+    myresult = mycursor.fetchall()
+    return myresult
 
-# Datos de ejemplo de recetas
-recetas = [sql]
+recetas = recipes()
 
 # Ruta para obtener una receta aleatoriaz
 @app.route('/receta_aleatoria', methods=['GET'])
 def obtener_receta_aleatoria():
-    receta_aleatoria = random.choice(recetas)
+    receta_aleatoria = (recetas)
+    print(receta_aleatoria)
     return jsonify({'receta': receta_aleatoria})
 
-if _name_ == '_main_':
+if __name__ == '_main_':
     app.run(debug=True)
 
 
