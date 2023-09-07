@@ -51,7 +51,35 @@ def receta_Post():
         print("================================================")
         
         return jsonify({'receta': respuesta})
-    
+
+
+@app.route('/create_receipe', methods=['POST'])
+
+def create_Post():
+
+    Id = request.form['id']
+    NomReceta = request.form['Nombre_receta']
+    Description = request.form['Descripcion']
+    Ingredients = request.form['Ingredientes']
+    Ingre_Principal = request.form['Ingrediente_principal']
+
+        mydb = mysql.connector.connect(
+        host="containers-us-west-53.railway.app",
+        user="root",
+        password="ZnKm3FY3rnSv1642dwtH",
+        database="railway",
+        port=7314
+    )
+
+   
+
+
+    mycursor = mydb.cursor()
+    mycursor.execute("INSERT INTO recipes (id, Nombre_receta, Descripcion, Ingredientes, Ingrediente_principal) values (%s, %s, %s, %s, %s)", (Id, NomReceta, Description, Ingredients, Ingre_Principal))   
+
+    mydb.commit()
+    cursor.close()
+    return jsonify({"Id ": Id, "Nombre receta": NomReceta, "Descripcion ": Description, "Ingredientes ": Ingredients, "Ingrediente principal ": Ingre_Principal})
     
 
 
@@ -66,6 +94,11 @@ def token_required(f):
          else:
              return jsonify({"message":"token is invalid"}), 403    
      return validate 
+
+{
+  "text": "Hello, my name is Wolfgang and I come from Germany. Where are you heading today?"
+}
+
 
 """
 MAIN ...........................................................................
