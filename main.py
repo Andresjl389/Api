@@ -56,14 +56,7 @@ def receta_Post():
 @app.route('/create_receipe', methods=['POST'])
 
 def create_Post():
-
-    Id = request.form['id']
-    NomReceta = request.form['Nombre_receta']
-    Description = request.form['Descripcion']
-    Ingredients = request.form['Ingredientes']
-    Ingre_Principal = request.form['Ingrediente_principal']
-
-        mydb = mysql.connector.connect(
+    mydb2 = mysql.connector.connect(
         host="containers-us-west-53.railway.app",
         user="root",
         password="ZnKm3FY3rnSv1642dwtH",
@@ -71,14 +64,20 @@ def create_Post():
         port=7314
     )
 
+    Id = request.form['id']
+    NomReceta = request.form['Nombre_receta']
+    Description = request.form['Descripcion']
+    Ingredients = request.form['Ingredientes']
+    Ingre_Principal = request.form['Ingrediente_principal']
+
+
    
 
 
-    mycursor = mydb.cursor()
+    mycursor = mydb2.cursor()
     mycursor.execute("INSERT INTO recipes (id, Nombre_receta, Descripcion, Ingredientes, Ingrediente_principal) values (%s, %s, %s, %s, %s)", (Id, NomReceta, Description, Ingredients, Ingre_Principal))   
 
-    mydb.commit()
-    cursor.close()
+    mydb2.commit()
     return jsonify({"Id ": Id, "Nombre receta": NomReceta, "Descripcion ": Description, "Ingredientes ": Ingredients, "Ingrediente principal ": Ingre_Principal})
     
 
