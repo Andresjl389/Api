@@ -10,11 +10,11 @@ app.config['SECRET_KEY'] = "mytoken"
 
 def recipes(Ingredientes_principal = ""):
     mydb = mysql.connector.connect(
-        host="containers-us-west-53.railway.app",
+        host="containers-us-west-164.railway.app",
         user="root",
-        password="ZnKm3FY3rnSv1642dwtH",
+        password="mrBmEjYDry39p8X6mB1a",
         database="railway",
-        port=7314
+        port=6384
     )
     mycursor = mydb.cursor()
     sql = "select * from recipes where Ingrediente_principal = '"+Ingredientes_principal+"'"
@@ -29,7 +29,7 @@ recetas = recipes()
 def obtener_receta_aleatoria():
     receta_aleatoria = recipes()
     print(receta_aleatoria)
-    return jsonify({'receta': receta_aleatoria})
+    return jsonify({'receta seleccionada': receta_aleatoria})
 
 if __name__ == '_main_':
     app.run(debug=True)
@@ -57,11 +57,11 @@ def receta_Post():
 
 def create_Post():
     mydb2 = mysql.connector.connect(
-        host="containers-us-west-53.railway.app",
+        host="containers-us-west-164.railway.app",
         user="root",
-        password="ZnKm3FY3rnSv1642dwtH",
+        password="mrBmEjYDry39p8X6mB1a",
         database="railway",
-        port=7314
+        port=6384
     )
 
     Id = request.form['id']
